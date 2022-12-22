@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/bertie-the-brain-homage/static/css/main.073c9b0a.css",
+    "main.js": "/bertie-the-brain-homage/static/js/main.19aab798.js",
+    "static/js/787.eea57bae.chunk.js": "/bertie-the-brain-homage/static/js/787.eea57bae.chunk.js",
+    "static/media/logo.svg": "/bertie-the-brain-homage/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/bertie-the-brain-homage/index.html",
+    "main.073c9b0a.css.map": "/bertie-the-brain-homage/static/css/main.073c9b0a.css.map",
+    "main.19aab798.js.map": "/bertie-the-brain-homage/static/js/main.19aab798.js.map",
+    "787.eea57bae.chunk.js.map": "/bertie-the-brain-homage/static/js/787.eea57bae.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.19aab798.js"
+  ]
+}
