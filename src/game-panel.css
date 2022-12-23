@@ -8,13 +8,17 @@
 
 .game-panel-grid {
   display: grid;
-  grid-template-columns: 33% 33% 33%;
+  grid-template-columns: 90px 90px 90px;
+  border: 3px solid black;
+  grid-gap: 3px;
+  background-color: black;
+  width: 276px;
 }
 
 .game-button {
   height: 90px;
   width: 90px;
-  border: solid 2px black;
+  border: none;
   background-color: white;
   font-size: 60px;
   font-weight: bold;
