@@ -1,5 +1,5 @@
 import React, {useState}  from 'react';
-import { getBertieMove } from './utils';
+import { getBertieMove, getWinner } from './utils';
 import { AppHeader } from './app-header';
 import { GameSelect } from './game-select';
 import { GamePanel } from './game-panel';
@@ -8,20 +8,18 @@ import './app.css';
 const kInitialGameState = ["","","","","","","","",""];
 
 function App() {
-  const [showSelect, setShowSelect] = useState(true);
   const [showGame, setshowGame] = useState(false);
   const [difficulty, setDifficulty] = useState(0);
   const [bertieMovesFirst, setBertieMovesFirst] = useState(false);
-  const [showResults, setshowResults] = useState(false);
   const [gameState, setGameState] = useState(kInitialGameState);
+  const [winner, setWinner] = useState(0);
+  const [showResults, setShowResults] = useState(false);
 
   const handleHumanStart = () => {
-    setShowSelect(false);
     setshowGame(true);
     setBertieMovesFirst(false);
   }
   const handleBertieStart = () => {
-    setShowSelect(false);
     setshowGame(true);
     setBertieMovesFirst(true);
     let newGameState = [...gameState];
@@ -30,15 +28,37 @@ function App() {
     newGameState[bertieCell] = "O";
     setGameState(newGameState);
   }
-  const handleButtonClick = (cell: number) => {
-    console.log(cell);
-    if (gameState[cell] !== "")
+  const handleGridClick = (cell: number) => {
+    console.log("player move: " + cell);
+    if (gameState[cell] !== "" || showResults)
       return;
+
+    // set the player move and see if it wins
     let newGameState = [...gameState];
     newGameState[cell] = "X";
-    const bertieCell = getBertieMove(newGameState, difficulty);
-    console.log(bertieCell);
-    newGameState[bertieCell] = "O";
+    let winner = getWinner(newGameState);
+
+    if (winner === 0) // no winner, let Bertie move
+    {
+      const bertieCell = getBertieMove(newGameState, difficulty);
+      console.log("bertie move: " + bertieCell);
+      newGameState[bertieCell] = "O";
+      winner = getWinner(newGameState);
+    }
+
+    setGameState(newGameState);
+    console.log(winner);
+    if (winner === 1 || winner === 2)
+    {
+      setWinner(winner);
+      setShowResults(true);
+    }
+  }
+
+  const handleRestartClick = () => {
+    setShowResults(false);
+    setshowGame(false);
+    let newGameState = [...kInitialGameState];
     setGameState(newGameState);
   }
 
@@ -46,18 +66,18 @@ function App() {
     <div className="app">
       <div className="app-shell">
         <AppHeader />
-        { showSelect
+        { !showGame
           ? <GameSelect
               onHumanStartClick={handleHumanStart}
               onBertieStartClick={handleBertieStart}
             />
-          : showGame
-            ? <GamePanel
-                currentGameState={gameState}
-                onButtonClick={handleButtonClick}
-
-              />
-            : <div>to do</div>
+          : <GamePanel
+              currentGameState={gameState}
+              onGridClick={handleGridClick}
+              showResults={showResults}
+              onRestartClick={handleRestartClick}
+              winner={winner}
+            />
           }
       </div>
     </div>
