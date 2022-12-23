@@ -33,7 +33,7 @@ export const GamePanel: React.FC<IProps> = (props) => {
             <div className="game-over">{winMessage}</div>
             <button className="restart-button" onClick={onRestartClick}>PLAY AGAIN</button>
           </div>
-        : <div className="game-status">Human: X, Bertie: 0</div>
+        : <div className="game-status">Human: X, Bertie: O</div>
       }
     </div>
   );
