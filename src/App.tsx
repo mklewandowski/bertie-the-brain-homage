@@ -4,11 +4,14 @@ import { GameSelect } from './game-select';
 import { GamePanel } from './game-panel';
 import './app.css';
 
+const kInitialGameState = ["","","","","","","","",""];
+
 function App() {
   const [showSelect, setShowSelect] = useState(true);
   const [showGame, setshowGame] = useState(false);
   const [bertieMovesFirst, setBertieMovesFirst] = useState(false);
   const [showResults, setshowResults] = useState(false);
+  const [gameState, setGameState] = useState(kInitialGameState);
 
   const handleHumanStart = () => {
     setShowSelect(false);
@@ -19,6 +22,12 @@ function App() {
     setShowSelect(false);
     setshowGame(true);
     setBertieMovesFirst(true);
+  }
+  const handleButtonClick = (cell: number) => {
+    console.log(cell);
+    let newGameState = [...gameState];
+    newGameState[cell] = "X";
+    setGameState(newGameState);
   }
 
   return (
@@ -31,7 +40,11 @@ function App() {
               onBertieStartClick={handleBertieStart}
             />
           : showGame
-            ? <GamePanel />
+            ? <GamePanel
+                currentGameState={gameState}
+                onButtonClick={handleButtonClick}
+
+              />
             : <div>to do</div>
           }
       </div>
