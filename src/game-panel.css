@@ -1,26 +1,24 @@
-.game-select {
+.game-panel {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 25px;
 }
 
-.intro-text {
-  font-size: 22px;
-  width: calc(100% - 40px);
-  text-align: left;
-  margin: 25px 0;
+.game-panel-grid {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
 }
 
-.game-select-button {
-  height: 75px;
-  width: 250px;
+.game-button {
+  height: 100px;
+  width: 100px;
   border: solid 2px black;
-  border-radius: 10px;
   background-color: white;
-  font-size: 28px;
+  font-size: 60px;
   font-weight: bold;
   color: black;
-  margin: 10px;
+  margin: 0px;
   font-family: 'Source Sans Pro', sans-serif;
 }
