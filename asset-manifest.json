@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/bertie-the-brain-homage/static/css/main.f3ef1503.css",
-    "main.js": "/bertie-the-brain-homage/static/js/main.f97d3a60.js",
+    "main.js": "/bertie-the-brain-homage/static/js/main.d0dc1d02.js",
     "static/js/787.eea57bae.chunk.js": "/bertie-the-brain-homage/static/js/787.eea57bae.chunk.js",
     "static/media/brain.png": "/bertie-the-brain-homage/static/media/brain.ac90ac068325a0780bf6.png",
     "index.html": "/bertie-the-brain-homage/index.html",
     "main.f3ef1503.css.map": "/bertie-the-brain-homage/static/css/main.f3ef1503.css.map",
-    "main.f97d3a60.js.map": "/bertie-the-brain-homage/static/js/main.f97d3a60.js.map",
+    "main.d0dc1d02.js.map": "/bertie-the-brain-homage/static/js/main.d0dc1d02.js.map",
     "787.eea57bae.chunk.js.map": "/bertie-the-brain-homage/static/js/787.eea57bae.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f3ef1503.css",
-    "static/js/main.f97d3a60.js"
+    "static/js/main.d0dc1d02.js"
   ]
 }
