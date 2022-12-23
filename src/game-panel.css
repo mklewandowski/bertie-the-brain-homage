@@ -29,6 +29,12 @@
   margin: 10px;
 }
 
+.game-status {
+  font-size: 26px;
+  font-weight: bold;
+  margin: 10px;
+}
+
 .restart-button {
   height: 40px;
   width: 250px;

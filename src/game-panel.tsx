@@ -14,7 +14,7 @@ export const GamePanel: React.FC<IProps> = (props) => {
   const {currentGameState, onGridClick, showResults, onRestartClick, winner} = props;
   const winMessage = winner === 1
     ? "BERTIE WINS! The computer brain triumphs!"
-    : winner === 2 ? "YOU WIN! You have defeated the electronic wonder." : "It's a draw. Bertie wants a rematch."
+    : winner === 2 ? "YOU WIN! You defeated the electronic wonder." : "It's a draw. Bertie wants a rematch."
   return (
     <div className="game-panel">
       <div className="game-panel-grid">
@@ -28,11 +28,12 @@ export const GamePanel: React.FC<IProps> = (props) => {
             </button>
         )}
       </div>
-      { showResults &&
-        <div>
-          <div className="game-over">{winMessage}</div>
-          <button className="restart-button" onClick={onRestartClick}>PLAY AGAIN</button>
-        </div>
+      { showResults
+        ? <div>
+            <div className="game-over">{winMessage}</div>
+            <button className="restart-button" onClick={onRestartClick}>PLAY AGAIN</button>
+          </div>
+        : <div className="game-status">Human: X, Bertie: 0</div>
       }
     </div>
   );
