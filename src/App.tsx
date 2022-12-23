@@ -48,7 +48,7 @@ function App() {
 
     setGameState(newGameState);
     console.log(winner);
-    if (winner === 1 || winner === 2)
+    if (winner === 1 || winner === 2 || winner === 3)
     {
       setWinner(winner);
       setShowResults(true);

@@ -18,8 +18,7 @@ export const getBertieMove = (gameState: string[], difficulty: number) => {
 export const getWinner = (gameState: string[]) => {
   const gridSize = 3;
 
-  let computerWin = false;
-  let playerWin = false;
+  let winState = 0;
 
   // check rows
   for (let r = 0; r < gridSize; r++) {
@@ -33,9 +32,9 @@ export const getWinner = (gameState: string[]) => {
         computerPoints++;
     }
     if (playerPoints >= 3)
-      playerWin = true;
+      winState = 2;
     else if (computerPoints >= 3)
-    computerWin = true;
+      winState = 1;
   }
 
   // check cols
@@ -50,18 +49,31 @@ export const getWinner = (gameState: string[]) => {
         computerPoints++;
     }
     if (playerPoints >= 3)
-      playerWin = true;
+      winState = 2;
     else if (computerPoints >= 3)
-    computerWin = true;
+      winState = 1;
   }
 
   // check diag
   if ((gameState[0] === "X" && gameState[4] === "X" && gameState[8] === "X")
     || (gameState[2] === "X" && gameState[4] === "X" && gameState[6] === "X"))
-    playerWin = true;
-  else if ((gameState[0] === "X" && gameState[4] === "X" && gameState[8] === "X")
-    || (gameState[2] === "X" && gameState[4] === "X" && gameState[6] === "X"))
-    computerWin = true;
+    winState = 2;
+  else if ((gameState[0] === "O" && gameState[4] === "O" && gameState[8] === "O")
+    || (gameState[2] === "O" && gameState[4] === "O" && gameState[6] === "O"))
+    winState = 1;
 
-  return playerWin ? 2 : (computerWin ? 1 : 0);
+  // check for draw
+  if (winState === 0)
+  {
+    let isDraw = true;
+    for (let c = 0; c < gameState.length; c++)
+    {
+      if (gameState[c] === "")
+        isDraw = false;
+    }
+    if (isDraw)
+      winState = 3;
+  }
+
+  return winState;
 }
