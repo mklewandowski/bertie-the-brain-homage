@@ -1,4 +1,5 @@
 import React, {useState}  from 'react';
+import { getBertieMove } from './utils';
 import { AppHeader } from './app-header';
 import { GameSelect } from './game-select';
 import { GamePanel } from './game-panel';
@@ -22,11 +23,21 @@ function App() {
     setShowSelect(false);
     setshowGame(true);
     setBertieMovesFirst(true);
+    let newGameState = [...gameState];
+    const bertieCell = getBertieMove(newGameState);
+    console.log(bertieCell);
+    newGameState[bertieCell] = "O";
+    setGameState(newGameState);
   }
   const handleButtonClick = (cell: number) => {
     console.log(cell);
+    if (gameState[cell] !== "")
+      return;
     let newGameState = [...gameState];
     newGameState[cell] = "X";
+    const bertieCell = getBertieMove(newGameState);
+    console.log(bertieCell);
+    newGameState[bertieCell] = "O";
     setGameState(newGameState);
   }
 
