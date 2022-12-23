@@ -1,10 +1,16 @@
-export const getBertieMove = (gameState: string[]) => {
-  let isValidMove = false;
+export const getBertieMove = (gameState: string[], difficulty: number) => {
   let bertieSquare = 0;
-  do {
-    bertieSquare = Math.floor(Math.random() * 9);
-    if (gameState[bertieSquare] === "")
-      isValidMove = true;
-  } while (!isValidMove);
+  if (difficulty === 0)
+  {
+    let isValidMove = false;
+    do {
+      bertieSquare = Math.floor(Math.random() * 9);
+      if (gameState[bertieSquare] === "")
+        isValidMove = true;
+    } while (!isValidMove);
+  }
+  else {
+
+  }
   return bertieSquare;
 }

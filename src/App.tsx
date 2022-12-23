@@ -10,6 +10,7 @@ const kInitialGameState = ["","","","","","","","",""];
 function App() {
   const [showSelect, setShowSelect] = useState(true);
   const [showGame, setshowGame] = useState(false);
+  const [difficulty, setDifficulty] = useState(0);
   const [bertieMovesFirst, setBertieMovesFirst] = useState(false);
   const [showResults, setshowResults] = useState(false);
   const [gameState, setGameState] = useState(kInitialGameState);
@@ -24,7 +25,7 @@ function App() {
     setshowGame(true);
     setBertieMovesFirst(true);
     let newGameState = [...gameState];
-    const bertieCell = getBertieMove(newGameState);
+    const bertieCell = getBertieMove(newGameState, difficulty);
     console.log(bertieCell);
     newGameState[bertieCell] = "O";
     setGameState(newGameState);
@@ -35,7 +36,7 @@ function App() {
       return;
     let newGameState = [...gameState];
     newGameState[cell] = "X";
-    const bertieCell = getBertieMove(newGameState);
+    const bertieCell = getBertieMove(newGameState, difficulty);
     console.log(bertieCell);
     newGameState[bertieCell] = "O";
     setGameState(newGameState);
