@@ -9,7 +9,7 @@ const kInitialGameState = ["","","","","","","","",""];
 
 function App() {
   const [showGame, setshowGame] = useState(false);
-  const [difficulty, setDifficulty] = useState(0);
+  const [difficulty, setDifficulty] = useState(1);
   const [bertieMovesFirst, setBertieMovesFirst] = useState(false);
   const [gameState, setGameState] = useState(kInitialGameState);
   const [winner, setWinner] = useState(0);
