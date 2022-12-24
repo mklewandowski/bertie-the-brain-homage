@@ -10,18 +10,15 @@ const kInitialGameState = ["","","","","","","","",""];
 function App() {
   const [showGame, setshowGame] = useState(false);
   const [difficulty, setDifficulty] = useState(0);
-  const [bertieMovesFirst, setBertieMovesFirst] = useState(false);
   const [gameState, setGameState] = useState(kInitialGameState);
   const [winner, setWinner] = useState(0);
   const [showResults, setShowResults] = useState(false);
 
   const handleHumanStart = () => {
     setshowGame(true);
-    setBertieMovesFirst(false);
   }
   const handleBertieStart = () => {
     setshowGame(true);
-    setBertieMovesFirst(true);
     let newGameState = [...gameState];
     const bertieCell = getBertieMove(newGameState, difficulty);
     newGameState[bertieCell] = "O";
