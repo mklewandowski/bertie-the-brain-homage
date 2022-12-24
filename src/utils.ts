@@ -18,6 +18,19 @@ const getRandomSquare = (gameState: string[]) => {
   return bertieSquare;
 }
 
+const calculateWinPoints = (cellState: string, cellWinPoints: number, computerPoints: number, playerPoints: number) => {
+  let newCellWinPoints = cellWinPoints;
+  if (cellState !== "")
+    newCellWinPoints = -1;
+  else if (computerPoints === 2) // can win
+    newCellWinPoints = 6;
+  else if (playerPoints === 2) // must block
+    newCellWinPoints = 5;
+  else if (playerPoints === 0) // can still win this row
+    newCellWinPoints = Math.max(newCellWinPoints, newCellWinPoints + 1);
+  return newCellWinPoints;
+}
+
 export const getBertieMove = (gameState: string[], difficulty: number) => {
   let bertieSquare = -1;
   if (difficulty === 0) {
@@ -39,14 +52,7 @@ export const getBertieMove = (gameState: string[], difficulty: number) => {
       }
       for (let cell = 0; cell < kGridSize; cell++)
       {
-        if (gameState[r * kGridSize + cell] !== "")
-          winPoints[r * kGridSize + cell] = -1;
-        else if (computerPoints === 2) // can win
-          winPoints[r * kGridSize + cell] = 6;
-        else if (playerPoints === 2) // must block
-          winPoints[r * kGridSize + cell] = 5;
-        else if (playerPoints === 0) // can still win this row
-          winPoints[r * kGridSize + cell] =  Math.max(winPoints[r * kGridSize + cell], winPoints[r * kGridSize + cell] + 1);
+        winPoints[r * kGridSize + cell] = calculateWinPoints(gameState[r * kGridSize + cell], winPoints[r * kGridSize + cell], computerPoints, playerPoints);
       }
     }
     // check cols
@@ -62,14 +68,7 @@ export const getBertieMove = (gameState: string[], difficulty: number) => {
       }
       for (let cell = 0; cell < kGridSize; cell++)
       {
-        if (gameState[c + kGridSize * cell] !== "")
-          winPoints[c + kGridSize * cell] = -1;
-        else if (computerPoints === 2) // can win
-          winPoints[c + kGridSize * cell] = 6;
-        else if (playerPoints === 2) // must block
-          winPoints[c + kGridSize * cell] = 5;
-        else if (playerPoints === 0) // can still win this col
-          winPoints[c + kGridSize * cell] = Math.max(winPoints[c + kGridSize * cell], winPoints[c + kGridSize * cell] + 1);
+        winPoints[c + kGridSize * cell] = calculateWinPoints(gameState[c + kGridSize * cell], winPoints[c + kGridSize * cell], computerPoints, playerPoints);
       }
     }
     // check diags
@@ -84,14 +83,7 @@ export const getBertieMove = (gameState: string[], difficulty: number) => {
     }
     for (let cell = 0; cell < 8; cell+=4)
     {
-      if (gameState[cell] !== "")
-        winPoints[cell] = -1;
-      else if (computerPoints === 2) // can win
-        winPoints[cell] = 6;
-      else if (playerPoints === 2) // must block
-        winPoints[cell] = 5;
-      else if (playerPoints === 0) // can still win this row
-        winPoints[cell] = Math.max(winPoints[cell], winPoints[cell] + 1);
+      winPoints[cell] = calculateWinPoints(gameState[cell], winPoints[cell], computerPoints, playerPoints);
     }
 
     computerPoints = 0;
@@ -105,14 +97,7 @@ export const getBertieMove = (gameState: string[], difficulty: number) => {
     }
     for (let cell = 2; cell <= 6; cell+=2)
     {
-      if (gameState[cell] !== "")
-        winPoints[cell] = -1;
-      else if (computerPoints === 2) // can win
-        winPoints[cell] = 6;
-      else if (playerPoints === 2) // must block
-        winPoints[cell] = 5;
-      else if (playerPoints === 0) // can still win this row
-        winPoints[cell] = Math.max(winPoints[cell], winPoints[cell] + 1);
+      winPoints[cell] = calculateWinPoints(gameState[cell], winPoints[cell], computerPoints, playerPoints);
     }
 
     // find best cell
