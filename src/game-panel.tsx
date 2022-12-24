@@ -20,7 +20,7 @@ export const GamePanel: React.FC<IProps> = (props) => {
       <div className="game-panel-grid">
         { currentGameState.map((gameState, i) =>
             <button
-              className="game-button"
+              className={`game-button ${i === 0 || i === 1 || i === 2 ? "top-edge" : ""} ${i === 0 || i === 3 || i === 6 ? "left-edge" : ""}`}
               onClick={() => {onGridClick(i)}}
               key={`button-${i}`}
             >

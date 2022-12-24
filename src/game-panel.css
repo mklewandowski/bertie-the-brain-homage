@@ -16,12 +16,22 @@
   width: 86px;
   border: none;
   background-color: white;
-  font-size: 60px;
+  font-size: 55px;
   font-weight: bold;
   color: black;
   margin: 0px;
   font-family: 'Source Sans Pro', sans-serif;
-  border: 2px black solid;
+  border: 3px black solid;
+  border-top: none;
+  border-left: none;
+}
+
+.left-edge {
+  border-left: 3px black solid;
+}
+
+.top-edge {
+  border-top: 3px black solid;
 }
 
 .game-over {
