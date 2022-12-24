@@ -7,13 +7,18 @@
 }
 
 .game-panel-grid {
-  display: grid;
-  grid-template-columns: 33% 33% 33%;
+  display: flex;
+  max-width: 275px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 .game-button {
-  height: 86px;
-  width: 86px;
+  height: 85px;
+  width: 85px;
+  max-height: 85px;
+  max-width: 85px;
   border: none;
   background-color: white;
   font-size: 55px;
@@ -24,6 +29,8 @@
   border: 3px black solid;
   border-top: none;
   border-left: none;
+  padding: 0;
+  -webkit-text-size-adjust: unset;
 }
 
 .left-edge {
