@@ -23,6 +23,15 @@ const getRandomSquare = (gameState: string[]) => {
   return bertieSquare;
 }
 
+// a weighted value given to each cell to determine if bertie will place an O on the cell
+// -1: cell is taken, cannot be used
+// 0: cell cannot help win a line, but is open
+// 1: cell can win 1 line
+// 2: cell can win 2 lines
+// 3: cell can win 3 lines
+// 4: cell can win 4 lines
+// 5: cell blocks opponent win
+// 6: cell results in win
 const calculateWinPoints = (cellState: string, cellWinPoints: number, linePoints: LinePoints) => {
   let newCellWinPoints = cellWinPoints;
   if (cellState !== "")
@@ -36,6 +45,7 @@ const calculateWinPoints = (cellState: string, cellWinPoints: number, linePoints
   return newCellWinPoints;
 }
 
+// a "line" is a vertical, horizontal, or diagonal stretch of 3 connected cells
 const calculateLinePoints = (cellState: string, linePoints: LinePoints) => {
   let newLinePoints: LinePoints = { ...linePoints };
   if (cellState === "X")
@@ -81,7 +91,6 @@ export const getBertieMove = (gameState: string[], difficulty: number) => {
     for (let c = 0; c <= 8; c+=4)
     {
       linePoints = calculateLinePoints(gameState[c], linePoints);
-      console.log(linePoints);
     }
     for (let cell = 0; cell <= 8; cell+=4)
     {
@@ -91,7 +100,6 @@ export const getBertieMove = (gameState: string[], difficulty: number) => {
     linePoints = { computerPoints: 0, playerPoints: 0 };
     for (let c = 2; c <= 6; c+=2)
     {
-      console.log(linePoints);
       linePoints = calculateLinePoints(gameState[c], linePoints);
     }
     for (let cell = 2; cell <= 6; cell+=2)
@@ -103,7 +111,6 @@ export const getBertieMove = (gameState: string[], difficulty: number) => {
     let highVal = -1;
     for (let c = 0; c < winPoints.length; c++)
     {
-      console.log(c + ":" + winPoints[c]);
       if (winPoints[c] > highVal && (difficulty == 2 || highVal < 0 || (difficulty == 1 && Math.random() < .5))) {
         highVal = winPoints[c];
         bertieSquare = c;
