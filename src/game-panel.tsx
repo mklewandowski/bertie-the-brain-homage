@@ -1,5 +1,5 @@
 import React from "react";
-
+import { GameResultType } from "./utils";
 import "./game-panel.css";
 
 interface IProps {
@@ -7,14 +7,14 @@ interface IProps {
   onGridClick: (cell: number) => void;
   showResults: boolean;
   onRestartClick: () => void;
-  winner: number;
+  gameResult: GameResultType;
 }
 
 export const GamePanel: React.FC<IProps> = (props) => {
-  const {currentGameState, onGridClick, showResults, onRestartClick, winner} = props;
-  const winMessage = winner === 1
+  const {currentGameState, onGridClick, showResults, onRestartClick, gameResult} = props;
+  const winMessage = gameResult === GameResultType.bertieWin
     ? "BERTIE WINS! The computer brain triumphs!"
-    : winner === 2 ? "YOU WIN! You beat the electronic wonder." : "It's a draw. Bertie wants a rematch."
+    : gameResult === GameResultType.playerWin ? "YOU WIN! You beat the electronic wonder." : "It's a draw. Bertie wants a rematch."
   return (
     <div className="game-panel">
       <div className="game-panel-grid">

@@ -1,5 +1,5 @@
 import React, {useState}  from 'react';
-import { getBertieMove, getWinner } from './utils';
+import { getBertieMove, getGameResult, GameResultType } from './utils';
 import { AppHeader } from './app-header';
 import { GameSelect } from './game-select';
 import { GamePanel } from './game-panel';
@@ -11,7 +11,7 @@ function App() {
   const [showGame, setshowGame] = useState(false);
   const [difficulty, setDifficulty] = useState(0);
   const [gameState, setGameState] = useState(kInitialGameState);
-  const [winner, setWinner] = useState(0);
+  const [gameResult, setGameResult] = useState(GameResultType.inProgress);
   const [showResults, setShowResults] = useState(false);
 
   const handleHumanStart = () => {
@@ -31,19 +31,19 @@ function App() {
     // set the player move and see if it wins
     let newGameState = [...gameState];
     newGameState[cell] = "X";
-    let winner = getWinner(newGameState);
+    let newGameResult = getGameResult(newGameState);
 
-    if (winner === 0) // no winner, let Bertie move
+    if (newGameResult === GameResultType.inProgress) // no winner, let Bertie move
     {
       const bertieCell = getBertieMove(newGameState, difficulty);
       newGameState[bertieCell] = "O";
-      winner = getWinner(newGameState);
+      newGameResult = getGameResult(newGameState);
     }
 
     setGameState(newGameState);
-    if (winner === 1 || winner === 2 || winner === 3)
+    if (newGameResult != GameResultType.inProgress)
     {
-      setWinner(winner);
+      setGameResult(newGameResult);
       setShowResults(true);
     }
   }
@@ -71,7 +71,7 @@ function App() {
               onGridClick={handleGridClick}
               showResults={showResults}
               onRestartClick={handleRestartClick}
-              winner={winner}
+              gameResult={gameResult}
             />
           }
       </div>

@@ -1,3 +1,10 @@
+export enum GameResultType {
+  inProgress = "inProgress",
+  playerWin = "playerWin",
+  bertieWin = "bertieWin",
+  tie = "tie"
+}
+
 export const getBertieMove = (gameState: string[], difficulty: number) => {
   let bertieSquare = -1;
   if (difficulty === 0) {
@@ -114,10 +121,10 @@ export const getBertieMove = (gameState: string[], difficulty: number) => {
   return bertieSquare;
 }
 
-export const getWinner = (gameState: string[]) => {
+export const getGameResult = (gameState: string[]) => {
   const gridSize = 3;
 
-  let winState = 0;
+  let gameResult = GameResultType.inProgress;
 
   // check rows
   for (let r = 0; r < gridSize; r++) {
@@ -131,9 +138,9 @@ export const getWinner = (gameState: string[]) => {
         computerPoints++;
     }
     if (playerPoints >= 3)
-      winState = 2;
+      gameResult = GameResultType.playerWin;
     else if (computerPoints >= 3)
-      winState = 1;
+      gameResult = GameResultType.bertieWin;
   }
 
   // check cols
@@ -148,21 +155,21 @@ export const getWinner = (gameState: string[]) => {
         computerPoints++;
     }
     if (playerPoints >= 3)
-      winState = 2;
+      gameResult = GameResultType.playerWin;
     else if (computerPoints >= 3)
-      winState = 1;
+      gameResult = GameResultType.bertieWin;
   }
 
   // check diag
   if ((gameState[0] === "X" && gameState[4] === "X" && gameState[8] === "X")
     || (gameState[2] === "X" && gameState[4] === "X" && gameState[6] === "X"))
-    winState = 2;
+    gameResult = GameResultType.playerWin;
   else if ((gameState[0] === "O" && gameState[4] === "O" && gameState[8] === "O")
     || (gameState[2] === "O" && gameState[4] === "O" && gameState[6] === "O"))
-    winState = 1;
+    gameResult = GameResultType.bertieWin;
 
   // check for draw
-  if (winState === 0)
+  if (gameResult === GameResultType.inProgress)
   {
     let isDraw = true;
     for (let c = 0; c < gameState.length; c++)
@@ -171,8 +178,8 @@ export const getWinner = (gameState: string[]) => {
         isDraw = false;
     }
     if (isDraw)
-      winState = 3;
+      gameResult = GameResultType.tie;
   }
 
-  return winState;
+  return gameResult;
 }
