@@ -5,64 +5,71 @@ export enum GameResultType {
   tie = "tie"
 }
 
+const kGridSize = 3;
+
+const getRandomSquare = (gameState: string[]) => {
+  let bertieSquare = -1;
+  let isValidMove = false;
+  do {
+    bertieSquare = Math.floor(Math.random() * 9);
+    if (gameState[bertieSquare] === "")
+      isValidMove = true;
+  } while (!isValidMove);
+  return bertieSquare;
+}
+
 export const getBertieMove = (gameState: string[], difficulty: number) => {
   let bertieSquare = -1;
   if (difficulty === 0) {
-    let isValidMove = false;
-    do {
-      bertieSquare = Math.floor(Math.random() * 9);
-      if (gameState[bertieSquare] === "")
-        isValidMove = true;
-    } while (!isValidMove);
+    bertieSquare = getRandomSquare(gameState);
   } else {
-    const gridSize = 3;
     const winPoints = [0, 0, 0, 0, 0, 0, 0, 0, 0];
     let computerPoints = 0;
     let playerPoints = 0;
     // check rows
-    for (let r = 0; r < gridSize; r++) {
+    for (let r = 0; r < kGridSize; r++) {
       computerPoints = 0;
       playerPoints = 0;
-      for (let cell = 0; cell < gridSize; cell++)
+      for (let cell = 0; cell < kGridSize; cell++)
       {
-        if (gameState[r * gridSize + cell] === "X")
+        if (gameState[r * kGridSize + cell] === "X")
           playerPoints++;
-        else if (gameState[r * gridSize + cell] === "O")
+        else if (gameState[r * kGridSize + cell] === "O")
           computerPoints++;
       }
-      for (let cell = 0; cell < gridSize; cell++)
+      for (let cell = 0; cell < kGridSize; cell++)
       {
-        if (gameState[r * gridSize + cell] !== "")
-          winPoints[r * gridSize + cell] = -1;
+        if (gameState[r * kGridSize + cell] !== "")
+          winPoints[r * kGridSize + cell] = -1;
         else if (computerPoints === 2) // can win
-          winPoints[r * gridSize + cell] = 6;
+          winPoints[r * kGridSize + cell] = 6;
         else if (playerPoints === 2) // must block
-          winPoints[r * gridSize + cell] = 5;
+          winPoints[r * kGridSize + cell] = 5;
         else if (playerPoints === 0) // can still win this row
-          winPoints[r * gridSize + cell] =  Math.max(winPoints[r * gridSize + cell], winPoints[r * gridSize + cell] + 1);
+          winPoints[r * kGridSize + cell] =  Math.max(winPoints[r * kGridSize + cell], winPoints[r * kGridSize + cell] + 1);
       }
     }
     // check cols
-    for (let c = 0; c < gridSize; c++) {
+    for (let c = 0; c < kGridSize; c++) {
       computerPoints = 0;
       playerPoints = 0;
-      for (let cell = 0; cell < gridSize; cell++)
+      for (let cell = 0; cell < kGridSize; cell++)
       {
-        if (gameState[c + gridSize * cell] === "X")
+        if (gameState[c + kGridSize * cell] === "X")
           playerPoints++;
-        else if (gameState[c + gridSize * cell] === "O")
+        else if (gameState[c + kGridSize * cell] === "O")
           computerPoints++;
       }
-      for (let cell = 0; cell < gridSize; cell++)
+      for (let cell = 0; cell < kGridSize; cell++)
       {
-        if (gameState[c + gridSize * cell] !== "")
-          winPoints[c + gridSize * cell] = -1;
+        if (gameState[c + kGridSize * cell] !== "")
+          winPoints[c + kGridSize * cell] = -1;
         else if (computerPoints === 2) // can win
-          winPoints[c + gridSize * cell] = 6;
+          winPoints[c + kGridSize * cell] = 6;
         else if (playerPoints === 2) // must block
-          winPoints[c + gridSize * cell] = 5;
+          winPoints[c + kGridSize * cell] = 5;
         else if (playerPoints === 0) // can still win this col
-          winPoints[c + gridSize * cell] = Math.max(winPoints[c + gridSize * cell], winPoints[c + gridSize * cell] + 1);
+          winPoints[c + kGridSize * cell] = Math.max(winPoints[c + kGridSize * cell], winPoints[c + kGridSize * cell] + 1);
       }
     }
     // check diags
@@ -122,19 +129,17 @@ export const getBertieMove = (gameState: string[], difficulty: number) => {
 }
 
 export const getGameResult = (gameState: string[]) => {
-  const gridSize = 3;
-
   let gameResult = GameResultType.inProgress;
 
   // check rows
-  for (let r = 0; r < gridSize; r++) {
+  for (let r = 0; r < kGridSize; r++) {
     let computerPoints = 0;
     let playerPoints = 0;
-    for (let cell = 0; cell < gridSize; cell++)
+    for (let cell = 0; cell < kGridSize; cell++)
     {
-      if (gameState[r * gridSize + cell] === "X")
+      if (gameState[r * kGridSize + cell] === "X")
         playerPoints++;
-      else if (gameState[r * gridSize + cell] === "O")
+      else if (gameState[r * kGridSize + cell] === "O")
         computerPoints++;
     }
     if (playerPoints >= 3)
@@ -144,14 +149,14 @@ export const getGameResult = (gameState: string[]) => {
   }
 
   // check cols
-  for (let c = 0; c < gridSize; c++) {
+  for (let c = 0; c < kGridSize; c++) {
     let computerPoints = 0;
     let playerPoints = 0;
-    for (let cell = 0; cell < gridSize; cell++)
+    for (let cell = 0; cell < kGridSize; cell++)
     {
-      if (gameState[c + gridSize * cell] === "X")
+      if (gameState[c + kGridSize * cell] === "X")
         playerPoints++;
-      else if (gameState[c + gridSize * cell] === "O")
+      else if (gameState[c + kGridSize * cell] === "O")
         computerPoints++;
     }
     if (playerPoints >= 3)
