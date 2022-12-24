@@ -9,7 +9,7 @@ const kInitialGameState = ["","","","","","","","",""];
 
 function App() {
   const [showGame, setshowGame] = useState(false);
-  const [difficulty, setDifficulty] = useState(1);
+  const [difficulty, setDifficulty] = useState(0);
   const [bertieMovesFirst, setBertieMovesFirst] = useState(false);
   const [gameState, setGameState] = useState(kInitialGameState);
   const [winner, setWinner] = useState(0);
@@ -24,12 +24,10 @@ function App() {
     setBertieMovesFirst(true);
     let newGameState = [...gameState];
     const bertieCell = getBertieMove(newGameState, difficulty);
-    console.log(bertieCell);
     newGameState[bertieCell] = "O";
     setGameState(newGameState);
   }
   const handleGridClick = (cell: number) => {
-    console.log("player move: " + cell);
     if (gameState[cell] !== "" || showResults)
       return;
 
@@ -41,13 +39,11 @@ function App() {
     if (winner === 0) // no winner, let Bertie move
     {
       const bertieCell = getBertieMove(newGameState, difficulty);
-      console.log("bertie move: " + bertieCell);
       newGameState[bertieCell] = "O";
       winner = getWinner(newGameState);
     }
 
     setGameState(newGameState);
-    console.log(winner);
     if (winner === 1 || winner === 2 || winner === 3)
     {
       setWinner(winner);
@@ -70,6 +66,8 @@ function App() {
           ? <GameSelect
               onHumanStartClick={handleHumanStart}
               onBertieStartClick={handleBertieStart}
+              currentDifficulty={difficulty}
+              setCurrentDifficulty={setDifficulty}
             />
           : <GamePanel
               currentGameState={gameState}

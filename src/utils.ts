@@ -1,15 +1,13 @@
 export const getBertieMove = (gameState: string[], difficulty: number) => {
-  let bertieSquare = 0;
-  if (difficulty === 0)
-  {
+  let bertieSquare = -1;
+  if (difficulty === 0) {
     let isValidMove = false;
     do {
       bertieSquare = Math.floor(Math.random() * 9);
       if (gameState[bertieSquare] === "")
         isValidMove = true;
     } while (!isValidMove);
-  }
-  else {
+  } else {
     const gridSize = 3;
     const winPoints = [0, 0, 0, 0, 0, 0, 0, 0, 0];
     let computerPoints = 0;
@@ -105,11 +103,9 @@ export const getBertieMove = (gameState: string[], difficulty: number) => {
 
     // find best cell
     let highVal = -1;
-
     for (let c = 0; c < winPoints.length; c++)
     {
-      if (winPoints[c] > highVal)
-      {
+      if (winPoints[c] > highVal && (difficulty == 2 || highVal < 0 || (difficulty == 1 && Math.random() < .5))) {
         highVal = winPoints[c];
         bertieSquare = c;
       }
