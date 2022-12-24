@@ -4,7 +4,6 @@
   align-items: center;
   justify-content: center;
   background-color: black;
-  /* background-image: url("wallpaper.jpg"); */
   height: 100vh;
   font-family: 'Source Sans Pro', sans-serif;
 }
@@ -21,4 +20,3 @@
   background-color: white;
   border: solid 5px black;
 }
-
